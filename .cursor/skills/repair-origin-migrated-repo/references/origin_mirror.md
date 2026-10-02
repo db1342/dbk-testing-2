@@ -7,7 +7,7 @@ The remote is already an Origin URL, and `origin auth status` already exited 0. 
 Run:
 
 ```bash
-origin repo mirror status --json
+origin repo mirror status --json mirrorStatus
 ```
 If the command fails, abort this skill.
 
