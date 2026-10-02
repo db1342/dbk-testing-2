@@ -1,7 +1,6 @@
 ---
 name: repair-origin-migrated-repo
-description: Diagnoses a failed git push or a pull request that cannot be created or updated, and can repair it in certain cases. Invoke manually with /repair-origin-migrated-repo.
-disable-model-invocation: true
+description: Diagnoses a failed git push or a pull request that cannot be created or updated, and can repair it when the failure comes from a GitHub-to-Origin migration. Use when git push fails, or a pull request cannot be created or updated, on a github.com or origin.cursor.com remote.
 disabled-environments:
   - cloud
 ---
@@ -16,4 +15,4 @@ Some failures to push to git or manipulate pull requests come from the move from
 git remote get-url origin
 ```
 
-If the hostname is github.com, read references/github.md and follow the instructions it contains.  If the hostname is origin.cursor.com, read references/origin.md and follow those instructions.  If it is something other than these, or you encounter some kind of error, this skill can't help and you should abort.
+If the hostname is github.com, read references/github.md and follow the instructions it contains.  If the hostname is origin.cursor.com, read references/origin.md and follow those instructions.  Read only that one file.  Leave the other references unread until the file you are following tells you to open one.  If the hostname is something other than these, or you encounter some kind of error, this skill can't help and you should abort.
