@@ -11,6 +11,12 @@ Some failures to push to git or manipulate pull requests come from the move from
 
 Before you run any command this skill lists, tell the user you are following the repair-origin-migrated-repo skill, and say in one sentence why: a push or pull request failed, and this procedure checks whether a GitHub-to-Origin migration is the cause. Send that announcement on its own, with no tool calls in that turn. The commands below (`git remote get-url`, `origin auth status`, `origin gh pr create --dry-run`, and the rest) are easy to misread if they appear with no skill name attached. Do not start them until the announcement has already been sent.
 
+## Announce your intention
+Say to the user:
+
+A possible reason why pushing to this repo or making PRs is not working is that this repo has been migrated to Origin,
+Cursor's native git forge.  I'll now check to see if that is the case, and if so help you adapt to this transition.
+
 ## Check the repo URL
 
 ```bash
