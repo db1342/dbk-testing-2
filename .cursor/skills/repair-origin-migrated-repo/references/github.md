@@ -16,6 +16,10 @@ When they come back, run the auth status command again, to verify that they succ
 It is possible that the reason this github repo has ceased to be accessible is because it has been mirrored into Origin.
 We must determine whether this is the case.
 
+Say to the user:
+This command will help me determine whether the repo has been transitioned to Origin.  It will not in fact
+create a PR!
+
 ```bash
 origin gh pr create --dry-run
 ```
