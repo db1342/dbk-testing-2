@@ -6,10 +6,29 @@ You should already have established that this repo has an origin.cursor.com remo
 origin auth status
 ```
 
-Exit 1 prints that the user is not logged in. Tell the user to run `origin auth login`, and to let you know when that has succeeded. Then end the turn and wait for the user to come back. The login command is unlikely to function correctly from the agent shell, so do not run it yourself.
+There are four possible outcomes. Follow the instructions for the one you see.
 
-When they come back, run the auth status command again, to verify that they succeeded.  If they refuse, do not act on the request, or if the second
-auth check fails, abort the skill.
+### Exit 1 prints that the user is not logged in.
+
+Instruct the user to run `origin auth login`, and tell them they must log into their @x.ai account, not their
+@anysphere.co account.  Do not attempt to run this in your agent shell, it is unlikely to succeed there.  When
+the user reports having performed this step, repeat the test above, and act in accordance with what you find.
+
+### The user is logged in, and they have an @x.ai email address.
+
+This check has succeeded.  Proceed to the "Once the user is authed" step.
+
+### The user is logged in, and they have an @anysphere.co email address.
+
+The user is authenticated, but to the wrong account.  Instruct them to do the following.  Do not attempt these
+steps in your agent shell, they are unlikely to succeed.
+
+* In their main browser session, go to xai.okta.com and open the Cursor tile.  Stress that already being signed into
+Cursor using their anysphere.co account does not suffice.
+* Run `origin auth logout` in their shell
+* Run `origin auth login` in their shell
+
+When they report success, run the auth status check above again, and act in accordance with what you find.
 
 ## Once the user is authed
 
