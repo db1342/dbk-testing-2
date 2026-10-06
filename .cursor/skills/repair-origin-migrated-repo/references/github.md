@@ -25,8 +25,8 @@ steps in your agent shell, they are unlikely to succeed.
 
 * In their main browser session, go to xai.okta.com and open the Cursor tile.  Stress that already being signed into
 Cursor using their anysphere.co account does not suffice.
-* Run `origin auth logout`
-* Run `origin auth login`
+* Run `origin auth logout` in their shell
+* Run `origin auth login` in their shell
 
 When they report success, run the auth status check above again, and act in accordance with what you find.
 
