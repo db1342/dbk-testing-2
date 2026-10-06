@@ -3,14 +3,17 @@ It has been migrated to Origin.  The origin command line tool should have been a
 
 ## Change the repo's remote URL
 
-Explain to the user that you intend to fix their issue by modifying the repo's remote URL to point to
-Origin.  Get their explicit approval before proceeding, then run the command below.  If the user does not approve,
-or the command fails for some reason, do not try to problem solve and diagnose.  Say you don't know how to
-help, and abort the skill.
+Do not ask for approval in the chat. A sentence such as "approve this and I will run it" does not show a dialog and is not approval. Invoke the shell tool on this command in the same turn:
 
 ```bash
 origin repo set-origin-remote --local
 ```
+
+That invocation is what raises the shell command approval dialog. Wait for the user to accept or reject it there.
+
+If Auto-review blocks the command, immediately retry that exact command with the shell tool's approval-card retry set, and pass the block reason through unchanged. That retry is the native approval card. Do not replace it with a chat question.
+
+If the user rejects the dialog, or the command fails, do not try to problem solve and diagnose. Say you don't know how to help, and abort the skill.
 
 Once you've done this, you can reattempt the user's original operation.  If it's a git operation, for example
 a push, you can do it the usual way and it should now succeed.  PR operations however are now done using the

@@ -9,6 +9,8 @@ disabled-environments:
 
 Some failures to push to git or manipulate pull requests come from the move from GitHub to Origin, Cursor's source control. Follow this procedure in order.  Not for use in cloud agents, if you are run in a cloud agent you should abort.  If this skill has previously run and been unsuccessful, do not reattempt it within that chat session.
 
+Before you run any command this skill lists, tell the user you are following the repair-origin-migrated-repo skill, and say in one sentence why: a push or pull request failed, and this procedure checks whether a GitHub-to-Origin migration is the cause. Send that announcement on its own, with no tool calls in that turn. The commands below (`git remote get-url`, `origin auth status`, `origin gh pr create --dry-run`, and the rest) are easy to misread if they appear with no skill name attached. Do not start them until the announcement has already been sent.
+
 ## Check the repo URL
 
 ```bash
