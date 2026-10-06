@@ -6,27 +6,54 @@ You should have established that the repo's remote URL hostname is github.com.  
 origin auth status
 ```
 
-Exit 1 prints that the user is not logged in. Tell the user to run `origin auth login`, and to let you know when that has succeeded. Then end the turn and wait for the user to come back. The login command is unlikely to function correctly from the agent shell, so do not run it yourself.
-The user may fail to see why authenticating to Origin is a sensible step.  Explain to them why you are recommending it.
+There are four possible outcomes. Follow the instructions for the one you see.
 
-When they come back, run the auth status command again, to verify that they succeeded.
+### Exit 1 prints that the user is not logged in.
+
+Instruct the user to run `origin auth login`, and tell them they must log into their @x.ai account, not their
+@anysphere.co account.  Do not attempt to run this in your agent shell, it is unlikely to succeed there.  When
+the user reports having performed this step, repeat the test above, and act in accordance with what you find.
+
+### The user is logged in, and they have an @x.ai email address.
+
+This check has succeeded.  Proceed to the "Determine Mirror Status" step.
+
+### The user is logged in, and they have an @anysphere.co email address.
+
+The user is authenticated, but to the wrong account.  Instruct them to do the following.  Do not attempt these
+steps in your agent shell, they are unlikely to succeed.
+
+* In their main browser session, go to xai.okta.com and open the Cursor tile.  Stress that already being signed into
+Cursor using their anysphere.co account does not suffice.
+* Run `origin auth logout`
+* Run `origin auth login`
+
+When they report success, run the auth status check above again, and act in accordance with what you find.
+
+### Something Else
+
+Maybe they are signed into some other account, maybe something beyond the scope of this skill is wrong with
+their setup.  Explain that this skill doesn't know how to help, and abort.
 
 ## Determine Mirror Status
+
+You should now have verified that the user is signed into Origin, using their @x.ai account.
 
 It is possible that the reason this github repo has ceased to be accessible is because it has been mirrored into Origin.
 We must determine whether this is the case.
 
 Say to the user:
-This command will help me determine whether the repo has been transitioned to Origin.  It will not in fact
-create a PR!
+This command will help me determine whether the repo has been transitioned to Origin.
 
 ```bash
-origin gh pr create --dry-run
+origin repo from-github
 ```
 
-If the repo has in fact been mirrored, this will return an error similar to
-"This repository's source of truth is Origin; GitHub pull requests are not accepted here."
-If something else happens, this skill cannot help, and you should abort.
+The output should tell you whether the repo has been mirrored, and if so what the corresponding origin URL is,
+and the mirror status (outbound vs inbound).  If something else happens, this skill cannot help, and you should abort.
 
-If you did determine that mirroring is the problem, as above, then read `./github_mirror.md`
-and follow the instructions it contains.
+If the repo is mirrored, and if the mirror status is outbound, then mirroring is the reason the user cannot push
+or make PRs.  In that case you should read `./github_mirror.md` and follow the instructions it contains.
+
+If the repo is not mirrored, or if the mirroring is "inbound", this is not the reason the user is struggling to
+push and make PRs.  This skill cannot help, and you should abort.
